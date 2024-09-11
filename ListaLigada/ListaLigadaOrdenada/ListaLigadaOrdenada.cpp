@@ -8,6 +8,7 @@ struct NO {
 };
 
 NO* primeiro = NULL;
+NO* ultimo = NULL;
 
 // headers
 void menu();
@@ -112,6 +113,9 @@ void exibirElementos()
 	}
 }
 
+//Altere a função inserirElemento de maneira que os elementos sejam inseridos em ordem e não duplicados.
+//Altere a funções buscarElemento e excluirElemento para que sejam otimizadas já que os elementos da lista estão em ordem.
+
 void inserirElemento()
 {
 	// aloca memoria dinamicamente para o novo elemento
@@ -128,26 +132,34 @@ void inserirElemento()
 	if (primeiro == NULL)
 	{
 		primeiro = novo;
+		ultimo = novo;
 	}
 	else
 	{
-		// procura o final da lista
+		// procura pela lista para ver se o valor é repetido
 		NO* aux = primeiro;
-		while (aux->prox != NULL) {
+		while (aux != NULL) {
+			if (aux->valor == novo->valor) {
+				cout << "Valor ja exista na lista. \n";
+				return;
+			}
 			aux = aux->prox;
 		}
-		aux->prox = novo;
+
+		// insere o elemento novo no final da lista caso o valor nao esteja repetido 
+		ultimo->prox = novo; // liga os nós (agora o proximo do ultimo é o novo elemento inserido)
+		ultimo = novo; // ultimo agora aponta pro novo elemento inserido
 	}
 }
 
 void excluirElemento()
 {
-
+	
 }
 
 void buscarElemento()
 {
-
+	
 }
 
 
