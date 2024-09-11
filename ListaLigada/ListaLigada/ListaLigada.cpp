@@ -8,6 +8,7 @@ struct NO {
 };
 
 NO* primeiro = NULL;
+NO* ultimo = NULL;
 
 // headers
 void menu();
@@ -70,7 +71,7 @@ void menu()
 void inicializar()
 {
 	// se a lista já possuir elementos
-// libera a memoria ocupada
+	// libera a memoria ocupada
 	NO* aux = primeiro;
 	while (aux != NULL) {
 		NO* paraExcluir = aux;
@@ -127,15 +128,12 @@ void inserirElemento()
 	if (primeiro == NULL)
 	{
 		primeiro = novo;
+		ultimo = novo; // faz com que o primeiro também seja o ultimo 
 	}
 	else
 	{
-		// procura o final da lista
-		NO* aux = primeiro;
-		while (aux->prox != NULL) {
-			aux = aux->prox;
-		}
-		aux->prox = novo;
+		ultimo->prox = novo; // liga os nós (agora o proximo do ultimo é o novo elemento inserido)
+		ultimo = novo; // ultimo agora aponta pro novo elemento inserido
 	}
 }
 
