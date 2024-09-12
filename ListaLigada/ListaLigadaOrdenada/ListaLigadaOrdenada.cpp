@@ -113,9 +113,6 @@ void exibirElementos()
 	}
 }
 
-//Altere a função inserirElemento de maneira que os elementos sejam inseridos em ordem e não duplicados.
-//Altere a funções buscarElemento e excluirElemento para que sejam otimizadas já que os elementos da lista estão em ordem.
-
 void inserirElemento()
 {
 	// aloca memoria dinamicamente para o novo elemento
@@ -131,24 +128,31 @@ void inserirElemento()
 
 	if (primeiro == NULL)
 	{
-		primeiro = novo;
-		ultimo = novo;
+		primeiro = novo; // se for o primeiro
 	}
-	else
+	else if (novo->valor < primeiro->valor) // se for menor que o primeiro
 	{
-		// procura pela lista para ver se o valor é repetido
+		novo->prox = primeiro; //próximo do novo elemento aponta para o primeiro 
+		primeiro = novo; // primeiro agora é o novo elemento menor
+	}
+	else //se for maior que o primeiro 
+	{
 		NO* aux = primeiro;
-		while (aux != NULL) {
-			if (aux->valor == novo->valor) {
-				cout << "Valor ja exista na lista. \n";
-				return;
-			}
-			aux = aux->prox;
+		NO* anterior = NULL;
+		
+		while (aux != NULL && novo->valor > aux->valor) {
+			anterior = aux;
+			aux = aux->prox; // faz com que o anterior esteja sempre um ponteiro antes da auxiliar
 		}
 
-		// insere o elemento novo no final da lista caso o valor nao esteja repetido 
-		ultimo->prox = novo; // liga os nós (agora o proximo do ultimo é o novo elemento inserido)
-		ultimo = novo; // ultimo agora aponta pro novo elemento inserido
+		if (aux != NULL && aux->valor == novo->valor)
+		{
+			cout << "Valor ja existe na lista. \n"; //verifica se já existe algum valor igual no ponto de inserção 
+			return;
+		}
+
+		anterior->prox = novo; // liga os pedaços da lista 
+		novo->prox = aux;
 	}
 }
 
@@ -161,5 +165,3 @@ void buscarElemento()
 {
 	
 }
-
-
